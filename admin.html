@@ -55,7 +55,8 @@ let api = "https://script.google.com/macros/s/AKfycbzFN90T3_GtI6lvH7PA7q1VRPf3UX
 
 fetch(api)
 .then(res => res.text())
-.then(data => {
+.then(data=>{
+console.log(data);
 
 document.getElementById("requests").innerHTML = data;
 
