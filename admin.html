@@ -46,55 +46,46 @@ color:white;
 <h1>👑 پنل ادمین WORLD WAR METAN</h1>
 
 <div id="requests">
-test1234
+در حال دریافت اطلاعات
 </div>
 
 <script>
 
 let api = "https://script.google.com/macros/s/AKfycbzFN90T3_GtI6lvH7PA7q1VRPf3UXtv_3Z-YWDm_ZRlT_zcHV9N6baMxJwL4o88qUhpqQ/exec";
 
-
 fetch(api)
-.then(function(response){
-    return response.text();
-})
-.then(function(text){
+.then(response => response.json())
+.then(data => {
 
-    console.log(text);
+let box = document.getElementById("requests");
 
-    let data = JSON.parse(text);
+box.innerHTML = "";
 
-    let box = document.getElementById("requests");
+data.forEach(x => {
 
-    box.innerHTML = "";
+box.innerHTML += 
+<div class="card">
 
-data.forEach(function(x){
+<h2>🌍 ${x.country}</h2>
 
-    box.innerHTML += 
+<p>👤 بازیکن: ${x.name}</p>
 
-    <div class="card">
+<p>📱 روبیکا: ${x.rubika}</p>
 
-    <h2>🌍 ${x.country}</h2>
+<p>📌 وضعیت: ${x.status}</p>
 
-    <p>👤 بازیکن: ${x.name}</p>
-
-    <p>📱 روبیکا: ${x.rubika}</p>
-
-    <p>📌 وضعیت: ${x.status}</p>
-
-    </div>
-
-    ;
+</div>
+;
 
 });
 
 })
-.catch(function(error){
+.catch(error => {
 
-    document.getElementById("requests").innerHTML =
-    "خطا در دریافت اطلاعات ❌";
+document.getElementById("requests").innerHTML =
+"خطا در دریافت اطلاعات ❌";
 
-    console.log(error);
+console.log(error);
 
 });
 
