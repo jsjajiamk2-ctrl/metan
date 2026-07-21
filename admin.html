@@ -56,9 +56,38 @@ let api = "https://script.google.com/macros/s/AKfycbzFN90T3_GtI6lvH7PA7q1VRPf3UX
 fetch(api)
 .then(res => res.text())
 .then(data=>{
-console.log(data);
 
-document.getElementById("requests").innerHTML = data;
+let box = document.getElementById("requests");
+
+box.innerHTML = "";
+
+data.forEach(x=>{
+
+box.innerHTML += 
+
+<div class="card">
+
+<h2>🌍 ${x.country}</h2>
+
+<p>👤 بازیکن: ${x.name}</p>
+
+<p>📱 روبیکا: ${x.rubika}</p>
+
+<p>📌 وضعیت: ${x.status}</p>
+
+<button class="ok" onclick="approve(${x.row})">
+✅ تایید
+</button>
+
+<button class="no" onclick="reject(${x.row})">
+❌ رد
+</button>
+
+</div>
+
+;
+
+});
 
 })
 .catch(error => {
