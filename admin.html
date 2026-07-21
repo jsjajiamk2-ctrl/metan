@@ -6,6 +6,7 @@
 <title>Admin Panel - Metan</title>
 
 <style>
+
 body{
 background:#101010;
 color:white;
@@ -20,23 +21,12 @@ padding:15px;
 border-radius:15px;
 }
 
-button{
-padding:10px 20px;
-border:0;
-border-radius:10px;
-margin:5px;
-cursor:pointer;
+pre{
+white-space:pre-wrap;
+text-align:left;
+direction:ltr;
 }
 
-.ok{
-background:green;
-color:white;
-}
-
-.no{
-background:red;
-color:white;
-}
 </style>
 
 </head>
@@ -46,33 +36,37 @@ color:white;
 <h1>👑 پنل ادمین WORLD WAR METAN</h1>
 
 <div id="requests">
-در حال دریافت اطلاعات
+در حال دریافت اطلاعات...
 </div>
+
 
 <script>
 
 let api = "https://script.google.com/macros/s/AKfycbzFN90T3_GtI6lvH7PA7q1VRPf3UXtv_3Z-YWDm_ZRlT_zcHV9N6baMxJwL4o88qUhpqQ/exec";
 
-<script>
-
-let api = "لینک Apps Script";
 
 fetch(api)
+
 .then(response => response.text())
+
 .then(data => {
 
 document.getElementById("requests").innerHTML =
-"<pre>"+data+"</pre>";
+"<pre>" + data + "</pre>";
 
 })
+
+
 .catch(error => {
 
 document.getElementById("requests").innerHTML =
-"خطا ❌";
+"خطا در دریافت اطلاعات ❌";
+
+console.log(error);
 
 });
 
-</script>
+
 </script>
 
 
