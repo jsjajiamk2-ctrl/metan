@@ -53,18 +53,18 @@ color:white;
 
 let api = "https://script.google.com/macros/s/AKfycbzFN90T3_GtI6lvH7PA7q1VRPf3UXtv_3Z-YWDm_ZRlT_zcHV9N6baMxJwL4o88qUhpqQ/exec";
 
+
 fetch(api)
-.then(res => res.text())
-.then(data=>{
+.then(response => response.json())
+.then(data => {
 
 let box = document.getElementById("requests");
 
 box.innerHTML = "";
 
-data.forEach(x=>{
+for(let x of data){
 
 box.innerHTML += 
-
 <div class="card">
 
 <h2>🌍 ${x.country}</h2>
@@ -75,37 +75,16 @@ box.innerHTML +=
 
 <p>📌 وضعیت: ${x.status}</p>
 
-<button class="ok" onclick="approve(${x.row})">
-✅ تایید
-</button>
-
-<button class="no" onclick="reject(${x.row})">
-❌ رد
-</button>
-
 </div>
-
 ;
 
-});
+}
 
 })
-.catch(error => {
+.catch(error=>{
 
-data.forEach(x=>{
-
-box.innerHTML += 
-<div class="card">
-
-<h2>🌍 ${x.country}</h2>
-<p>👤 بازیکن: ${x.name}</p>
-<p>📱 روبیکا: ${x.rubika}</p>
-<p>📌 وضعیت: ${x.status}</p>
-
-</div>
-;
-
-});
+document.getElementById("requests").innerHTML =
+"خطا ❌";
 
 console.log(error);
 
