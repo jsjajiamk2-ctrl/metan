@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>WORLD WAR METAN</title>
+
+<style>
+
+body{
+background:#101010;
+color:white;
+font-family:tahoma;
+text-align:center;
+}
+
+h1{
+font-size:30px;
+}
+
+input{
+width:80%;
+padding:12px;
+border-radius:10px;
+border:0;
+margin:10px;
+}
+
+.country{
+background:#222;
+margin:12px;
+padding:15px;
+border-radius:15px;
+}
+
+button{
+padding:10px 20px;
+border-radius:10px;
+border:0;
+}
+
+#box{
+display:none;
+background:#222;
+margin:20px;
+padding:20px;
+border-radius:15px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<h1>🌍 WORLD WAR METAN</h1>
+
+<input id="search" placeholder="جستجوی کشور..." onkeyup="search()">
+
+
+
+<div id="countries"></div>
+
+
+
+<div id="box">
+
+<h2 id="selected"></h2>
+
+<input id="name" placeholder="نام بازیکن">
+
+<input id="rubika" placeholder="آیدی روبیکا">
+
+<button onclick="send()">
+ثبت رزرو
+</button>
+
+</div>
+
+
+
+<script>
+
+
+let countries=[
+
+["🇮🇷","ایران","Iran"],
+["🇮🇶","عراق","Iraq"],
+["🇸🇦","عربستان سعودی","Saudi Arabia"],
+["🇦🇪","امارات","United Arab Emirates"],
+["🇶🇦","قطر","Qatar"],
+["🇰🇼","کویت","Kuwait"],
+["🇧🇭","بحرین","Bahrain"],
+["🇴🇲","عمان","Oman"],
+["🇾🇪","یمن","Yemen"],
+["🇹🇷","ترکیه","Turkey"],
+["🇸🇾","سوریه","Syria"],
+["🇱🇧","لبنان","Lebanon"],
+["🇯🇴","اردن","Jordan"],
+["🇨🇳","چین","China"],
+["🇯🇵","ژاپن","Japan"],
+["🇰🇷","کره جنوبی","South Korea"],
+["🇰🇵","کره شمالی","North Korea"],
+["🇮🇳","هند","India"],
+["🇵🇰","پاکستان","Pakistan"],
+["🇦🇫","افغانستان","Afghanistan"],
+["🇷🇺","روسیه","Russia"],
+["🇰🇿","قزاقستان","Kazakhstan"],
+["🇺🇿","ازبکستان","Uzbekistan"],
+["🇦🇿","آذربایجان","Azerbaijan"],
+["🇦🇲","ارمنستان","Armenia"],
+["🇬🇪","گرجستان","Georgia"],
+["🇹🇭","تایلند","Thailand"],
+["🇻🇳","ویتنام","Vietnam"],
+["🇲🇾","مالزی","Malaysia"],
+["🇸🇬","سنگاپور","Singapore"],
+["🇮🇩","اندونزی","Indonesia"],
+["🇵🇭","فیلیپین","Philippines"],
+["🇲🇲","میانمار","Myanmar"],
+["🇲🇳","مغولستان","Mongolia"],
+["🇬🇧","انگلیس","United Kingdom"],
+["🇫🇷","فرانسه","France"],
+["🇩🇪","آلمان","Germany"],
+["🇮🇹","ایتالیا","Italy"],
+["🇪🇸","اسپانیا","Spain"],
+["🇵🇹","پرتغال","Portugal"],
+["🇳🇱","هلند","Netherlands"],
+["🇧🇪","بلژیک","Belgium"],
+["🇨🇭","سوئیس","Switzerland"],
+["🇦🇹","اتریش","Austria"],
+["🇵🇱","لهستان","Poland"],
+["🇨🇿","جمهوری چک","Czech Republic"],
+["🇸🇰","اسلواکی","Slovakia"],
+["🇭🇺","مجارستان","Hungary"],
+["🇷🇴","رومانی","Romania"],
+["🇧🇬","بلغارستان","Bulgaria"],
+["🇬🇷","یونان","Greece"],
+["🇸🇪","سوئد","Sweden"],
+["🇳🇴","نروژ","Norway"],
+["🇩🇰","دانمارک","Denmark"],
+["🇫🇮","فنلاند","Finland"],
+["🇮🇸","ایسلند","Iceland"],
+["🇮🇪","ایرلند","Ireland"],
+["🇺🇦","اوکراین","Ukraine"],
+["🇧🇾","بلاروس","Belarus"],
+["🇷🇸","صربستان","Serbia"],
+["🇭🇷","کرواسی","Croatia"],
+["🇧🇦","بوسنی و هرزگوین","Bosnia and Herzegovina"],
+["🇸🇮","اسلوونی","Slovenia"],
+["🇸🇮","مونته‌نگرو","Montenegro"],
+["🇲🇰","مقدونیه شمالی","North Macedonia"],
+["🇦🇱","آلبانی","Albania"],
+["🇲🇩","مولداوی","Moldova"],
+["🇱🇺","لوکزامبورگ","Luxembourg"],
+["🇲🇹","مالت","Malta"],
+["🇨🇾","قبرس","Cyprus"],
+["🇪🇬","مصر","Egypt"],
+["🇱🇾","لیبی","Libya"],
+["🇹🇳","تونس","Tunisia"],
+["🇩🇿","الجزایر","Algeria"],
+["🇲🇦","مراکش","Morocco"],
+["🇸🇩","سودان","Sudan"],
+["🇸🇸","سودان جنوبی","South Sudan"],
+["🇪🇹","اتیوپی","Ethiopia"],
+["🇪🇷","اریتره","Eritrea"],
+["🇩🇯","جیبوتی","Djibouti"],
+["🇸🇴","سومالی","Somalia"],
+["🇰🇪","کنیا","Kenya"],
+["🇺🇬","اوگاندا","Uganda"],
+["🇹🇿","تانزانیا","Tanzania"],
+["🇷🇼","رواندا","Rwanda"],
+["🇧🇮","بوروندی","Burundi"],
+["🇨🇩","جمهوری دموکراتیک کنگو","DR Congo"],
+["🇨🇬","کنگو","Republic of the Congo"],
+["🇨🇲","کامرون","Cameroon"],
+["🇳🇬","نیجریه","Nigeria"],
+["🇬🇭","غنا","Ghana"],
+["🇨🇮","ساحل عاج","Ivory Coast"],
+["🇸🇳","سنگال","Senegal"],
+["🇲🇱","مالی","Mali"],
+["🇧🇫","بورکینافاسو","Burkina Faso"],
+["🇳🇪","نیجر","Niger"],
+["🇹🇩","چاد","Chad"],
+["🇨🇫","جمهوری آفریقای مرکزی","Central African Republic"],
+["🇬🇦","گابن","Gabon"],
+["🇬🇶","گینه استوایی","Equatorial Guinea"],
+["🇦🇴","آنگولا","Angola"],
+["🇿🇲","زامبیا","Zambia"],
+["🇿🇼","زیمبابوه","Zimbabwe"],
+["🇲🇿","موزامبیک","Mozambique"],
+["🇲🇬","ماداگاسکار","Madagascar"],
+["🇿🇦","آفریقای جنوبی","South Africa"],
+["🇳🇦","نامیبیا","Namibia"],
+["🇧🇼","بوتسوانا","Botswana"],
+["🇱🇸","لسوتو","Lesotho"],
+["🇸🇿","اسواتینی","Eswatini"],
+["🇺🇸","آمریکا","United States"],
+["🇨🇦","کانادا","Canada"],
+["🇲🇽","مکزیک","Mexico"],
+["🇬🇹","گواتمالا","Guatemala"],
+["🇧🇿","بلیز","Belize"],
+["🇭🇳","هندوراس","Honduras"],
+["🇸🇻","السالوادور","El Salvador"],
+["🇳🇮","نیکاراگوئه","Nicaragua"],
+["🇨🇷","کاستاریکا","Costa Rica"],
+["🇵🇦","پاناما","Panama"],
+["🇨🇺","کوبا","Cuba"],
+["🇯🇲","جامائیکا","Jamaica"],
+["🇭🇹","هائیتی","Haiti"],
+["🇩🇴","جمهوری دومینیکن","Dominican Republic"],
+["🇧🇷","برزیل","Brazil"],
+["🇦🇷","آرژانتین","Argentina"],
+["🇨🇱","شیلی","Chile"],
+["🇵🇪","پرو","Peru"],
+["🇨🇴","کلمبیا","Colombia"],
+["🇻🇪","ونزوئلا","Venezuela"],
+["🇪🇨","اکوادور","Ecuador"],
+["🇧🇴","بولیوی","Bolivia"],
+["🇵🇾","پاراگوئه","Paraguay"],
+["🇺🇾","اروگوئه","Uruguay"],
+["🇬🇾","گویان","Guyana"],
+["🇸🇷","سورینام","Suriname"],
+["🇬🇫","گویان فرانسه","French Guiana"],
+["🇦🇺","استرالیا","Australia"],
+["🇳🇿","نیوزیلند","New Zealand"],
+["🇫🇯","فیجی","Fiji"],
+["🇵🇬","پاپوآ گینه نو","Papua New Guinea"],
+["🇼🇸","ساموآ","Samoa"],
+["🇹🇴","تونگا","Tonga"],
+["🇻🇺","وانواتو","Vanuatu"],
+["🇸🇧","جزایر سلیمان","Solomon Islands"],
+["🇰🇮","کیریباتی","Kiribati"],
+["🇫🇲","میکرونزی","Micronesia"],
+["🇲🇭","جزایر مارشال","Marshall Islands"],
+["🇵🇼","پالائو","Palau"],
+["🇳🇷","نائورو","Nauru"],
+["🇹🇻","تووالو","Tuvalu"],
+["🇱🇮","لیختن‌اشتاین","Liechtenstein"],
+["🇦🇩","آندورا","Andorra"],
+["🇲🇨","موناکو","Monaco"],
+["🇻🇦","واتیکان","Vatican City"],
+["🇸🇲","سن مارینو","San Marino"]
+
+];
+
+let chosen="";
+
+let area=document.getElementById("countries");
+
+
+function show(){
+
+area.innerHTML="";
+
+countries.forEach(c=>{
+
+area.innerHTML +=`
+
+<div class="country">
+
+<h2>${c[0]} ${c[1]} | ${c[2]}</h2>
+
+<p>وضعیت: 🟢 آزاد</p>
+
+<button onclick="reserve('${c[1]}')">
+رزرو کشور
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+show();
+
+
+
+function reserve(c){
+
+chosen=c;
+
+document.getElementById("countries").style.display="none";
+
+document.getElementById("box").style.display="block";
+
+document.getElementById("selected").innerHTML=
+"کشور انتخابی: "+c;
+
+}
+
+function send(){
+
+let player=document.getElementById("name").value;
+let rubika=document.getElementById("rubika").value;
+
+if(player=="" || rubika==""){
+alert("لطفاً نام و آیدی روبیکا را وارد کنید");
+return;
+}
+
+fetch("https://script.google.com/macros/s/AKfycbyFDMOyCk-8I6N8GzBOGjehB1x4tzqL_nIYrvsLA3ut3b5FZwfbFPxFgzOakLDsbVd9tQ/exec", {
+  method: "POST",
+  headers: {
+    "Content-Type": "text/plain;charset=utf-8"
+  },
+  body: JSON.stringify({
+    country: chosen,
+    name: player,
+    rubika: rubika
+  })
+})
+.then(res => res.text())
+.then(data => {
+  alert("رزرو با موفقیت ثبت شد ✅");
+  location.reload();
+}); 
+
+}
+
+
+function search(){
+
+let text=document.getElementById("search").value.toLowerCase();
+
+let items=document.getElementsByClassName("country");
+
+
+for(let i=0;i<items.length;i++){
+
+if(items[i].innerText.toLowerCase().includes(text))
+items[i].style.display="block";
+
+else
+items[i].style.display="none";
+
+}
+
+}
+
+
+</script>
+
+
+</body>
+</html>
