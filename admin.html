@@ -92,7 +92,20 @@ box.innerHTML +=
 })
 .catch(error => {
 
-document.getElementById("requests").innerHTML = "خطا ❌";
+data.forEach(x=>{
+
+box.innerHTML += 
+<div class="card">
+
+<h2>🌍 ${x.country}</h2>
+<p>👤 بازیکن: ${x.name}</p>
+<p>📱 روبیکا: ${x.rubika}</p>
+<p>📌 وضعیت: ${x.status}</p>
+
+</div>
+;
+
+});
 
 console.log(error);
 
