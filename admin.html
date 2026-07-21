@@ -46,7 +46,7 @@ color:white;
 <h1>👑 پنل ادمین WORLD WAR METAN</h1>
 
 <div id="requests">
-در حال دریافت درخواست‌ها...
+در حال دریافت اطلاعات...
 </div>
 
 
@@ -58,15 +58,27 @@ let api = "https://script.google.com/macros/s/AKfycbzFN90T3_GtI6lvH7PA7q1VRPf3UX
 function load(){
 
 fetch(api)
-.then(res=>res.json())
-.then(data=>{
 
-let box=document.getElementById("requests");
+.then(response => response.json())
+
+.then(data => {
+
+let box = document.getElementById("requests");
 
 box.innerHTML="";
 
 
+if(data.length == 0){
+
+box.innerHTML="هیچ رزروی وجود ندارد";
+
+return;
+
+}
+
+
 data.forEach(x=>{
+
 
 box.innerHTML += 
 
@@ -78,39 +90,62 @@ box.innerHTML +=
 
 <p>📱 روبیکا: ${x.rubika}</p>
 
-<p>وضعیت: ${x.status}</p>
+<p>📌 وضعیت: ${x.status}</p>
+
 
 <button class="ok" onclick="approve(${x.row})">
 ✅ تایید
 </button>
 
+
 <button class="no" onclick="reject(${x.row})">
 ❌ رد
 </button>
 
+
 </div>
 
 ;
-});
 
 });
+
+
+})
+
+.catch(error=>{
+
+document.getElementById("requests").innerHTML =
+"خطا در دریافت اطلاعات ❌";
+
+console.log(error);
+
+});
+
 
 }
+
 
 
 function approve(row){
-alert("تایید درخواست ردیف "+row);
+
+alert("درخواست ردیف "+row+" تایید شد");
+
 }
+
 
 
 function reject(row){
-alert("رد درخواست ردیف "+row);
+
+alert("درخواست ردیف "+row+" رد شد");
+
 }
+
 
 
 load();
 
 </script>
+
 
 </body>
 </html>
