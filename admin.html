@@ -55,30 +55,20 @@ color:white;
 let api = "https://script.google.com/macros/s/AKfycbzFN90T3_GtI6lvH7PA7q1VRPf3UXtv_3Z-YWDm_ZRlT_zcHV9N6baMxJwL4o88qUhpqQ/exec";
 
 
-function load(){
+fetch(api + "?callback=test")
+.then(res=>res.text())
+.then(data=>{
 
-fetch(api + "?t=" + new Date().getTime())
+console.log(data);
 
-.then(response => response.json())
+let json = JSON.parse(data);
 
-.then(data => {console.log(data);
-
-let box = document.getElementById("requests");
+let box=document.getElementById("requests");
 
 box.innerHTML="";
 
 
-if(data.length == 0){
-
-box.innerHTML="هیچ رزروی وجود ندارد";
-
-return;
-
-}
-
-
-data.forEach(x=>{
-
+json.forEach(x=>{
 
 box.innerHTML += 
 
@@ -92,16 +82,13 @@ box.innerHTML +=
 
 <p>📌 وضعیت: ${x.status}</p>
 
-
-<button class="ok" onclick="approve(${x.row})">
+<button class="ok">
 ✅ تایید
 </button>
 
-
-<button class="no" onclick="reject(${x.row})">
+<button class="no">
 ❌ رد
 </button>
-
 
 </div>
 
@@ -111,38 +98,15 @@ box.innerHTML +=
 
 
 })
-
-.catch(error=>{
+.catch(err=>{
 
 document.getElementById("requests").innerHTML =
 "خطا در دریافت اطلاعات ❌";
 
-console.log(error);
+console.log(err);
 
 });
 
-
-}
-
-
-
-function approve(row){
-
-alert("درخواست ردیف "+row+" تایید شد");
-
-}
-
-
-
-function reject(row){
-
-alert("درخواست ردیف "+row+" رد شد");
-
-}
-
-
-
-load();
 
 </script>
 
