@@ -68,23 +68,25 @@ fetch(api)
 
     box.innerHTML = "";
 
-    data.forEach(function(x){
+data.forEach(function(x){
 
-        box.innerHTML += 
-        <div class="card">
+    box.innerHTML += 
 
-        <h2>🌍 ${x.country}</h2>
+    <div class="card">
 
-        <p>👤 بازیکن: ${x.name}</p>
+    <h2>🌍 ${x.country}</h2>
 
-        <p>📱 روبیکا: ${x.rubika}</p>
+    <p>👤 بازیکن: ${x.name}</p>
 
-        <p>📌 وضعیت: ${x.status}</p>
+    <p>📱 روبیکا: ${x.rubika}</p>
 
-        </div>
-        ;
+    <p>📌 وضعیت: ${x.status}</p>
 
-    });
+    </div>
+
+    ;
+
+});
 
 })
 .catch(function(error){
