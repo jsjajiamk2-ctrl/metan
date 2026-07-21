@@ -53,42 +53,26 @@ color:white;
 
 let api = "https://script.google.com/macros/s/AKfycbzFN90T3_GtI6lvH7PA7q1VRPf3UXtv_3Z-YWDm_ZRlT_zcHV9N6baMxJwL4o88qUhpqQ/exec";
 
+<script>
+
+let api = "لینک Apps Script";
+
 fetch(api)
-.then(response => response.json())
+.then(response => response.text())
 .then(data => {
 
-let box = document.getElementById("requests");
-
-box.innerHTML = "";
-
-data.forEach(x => {
-
-box.innerHTML += 
-<div class="card">
-
-<h2>🌍 ${x.country}</h2>
-
-<p>👤 بازیکن: ${x.name}</p>
-
-<p>📱 روبیکا: ${x.rubika}</p>
-
-<p>📌 وضعیت: ${x.status}</p>
-
-</div>
-;
-
-});
+document.getElementById("requests").innerHTML =
+"<pre>"+data+"</pre>";
 
 })
 .catch(error => {
 
 document.getElementById("requests").innerHTML =
-"خطا در دریافت اطلاعات ❌";
-
-console.log(error);
+"خطا ❌";
 
 });
 
+</script>
 </script>
 
 
