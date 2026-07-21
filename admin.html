@@ -57,7 +57,7 @@ let api = "https://script.google.com/macros/s/AKfycbzFN90T3_GtI6lvH7PA7q1VRPf3UX
 
 function load(){
 
-fetch(api)
+fetch(api + "?t=" + new Date().getTime())
 
 .then(response => response.json())
 
