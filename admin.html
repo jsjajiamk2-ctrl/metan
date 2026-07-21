@@ -49,64 +49,24 @@ color:white;
 در حال دریافت اطلاعات...
 </div>
 
-
 <script>
 
 let api = "https://script.google.com/macros/s/AKfycbzFN90T3_GtI6lvH7PA7q1VRPf3UXtv_3Z-YWDm_ZRlT_zcHV9N6baMxJwL4o88qUhpqQ/exec";
 
+fetch(api)
+.then(res => res.text())
+.then(data => {
 
-fetch(api + "?callback=test")
-.then(res=>res.text())
-.then(data=>{
-
-console.log(data);
-
-let json = JSON.parse(data);
-
-let box=document.getElementById("requests");
-
-box.innerHTML="";
-
-
-json.forEach(x=>{
-
-box.innerHTML += 
-
-<div class="card">
-
-<h2>🌍 ${x.country}</h2>
-
-<p>👤 بازیکن: ${x.name}</p>
-
-<p>📱 روبیکا: ${x.rubika}</p>
-
-<p>📌 وضعیت: ${x.status}</p>
-
-<button class="ok">
-✅ تایید
-</button>
-
-<button class="no">
-❌ رد
-</button>
-
-</div>
-
-;
-
-});
-
+document.getElementById("requests").innerHTML = data;
 
 })
-.catch(err=>{
+.catch(error => {
 
-document.getElementById("requests").innerHTML =
-"خطا در دریافت اطلاعات ❌";
+document.getElementById("requests").innerHTML = "خطا ❌";
 
-console.log(err);
+console.log(error);
 
 });
-
 
 </script>
 
